@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 061054435826412bbe7078d95141d65d, type: 3}
+  m_Name: UnitsViewAsset
+  m_EditorClassIdentifier: 
+  playerConfiguration: {fileID: 11400000, guid: 7c9774e5232504312bb8c3bb23752e82, type: 2}
+  asteroidConfiguration: {fileID: 11400000, guid: 10cb1053d5bb6441885c456155dbdd79, type: 2}
+  alienConfiguration: {fileID: 11400000, guid: c0f6cbf784c1445d78bac09c1bbbce80, type: 2}
