@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: PlayerUnitConfiguration
   m_EditorClassIdentifier: 
   view: {fileID: 102028112676485835, guid: 5e12877e6cdcf441db72ebe3b9ad63a9, type: 3}
-  movementSpeed: 1
+  movementSpeed: 0.02

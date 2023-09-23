@@ -1,17 +1,29 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Game.Scripts.Infrastructure
 {
     public class PlayerInput : IPlayerInput
     {
-        public Vector2 MovementAxis()
+        public bool IsShoot() 
+            =>  Input.GetKey(KeyCode.Space) || Input.GetMouseButton(0);
+
+        private float VerticalAxis()
         {
-            return new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+            if (Keyboard.current.wKey.isPressed) return 1f;
+            if (Keyboard.current.sKey.isPressed) return -1f;
+            return 0f;
         }
 
-        public bool IsShoot()
+        private float HorizontalAxis()
         {
-            return Input.GetKey(KeyCode.Space) || Input.GetMouseButton(0);
+            if (Keyboard.current.dKey.isPressed) return 1f;
+            if (Keyboard.current.aKey.isPressed) return -1f;
+            return 0f;
         }
+        
+        public Vector2 MovementAxis() 
+            => new Vector2(HorizontalAxis(), VerticalAxis());
+
     }
 }

@@ -6,16 +6,14 @@ namespace Game.Scripts.Units
     public class PlayerPresenter : UnitPresenter
     {
         private readonly IPlayerInput _playerInput;
-        private Vector2 _currentPosition;
+        private readonly Camera _camera;
+        
         private float _currentAngle;
-
         private float _forwardImpulse;
+        
         private const float RotationSpeed = 80f;
-
         private const float Braking = 0.02f;
         private const float MovementTreshhold = 0.01f;
-
-        private Camera _camera;
         public PlayerPresenter(UnitConfiguration unitConfiguration, Vector2 spawnPosition, IPlayerInput playerInput) : base(unitConfiguration, spawnPosition)
         {
             _playerInput = playerInput;
@@ -25,7 +23,7 @@ namespace Game.Scripts.Units
         public override void UpdateItem()
         {
             base.UpdateItem();
-
+            
             Rotation();
             ForwardMovement();
             OffscreenTeleportation();
@@ -75,6 +73,7 @@ namespace Game.Scripts.Units
         private void Rotation()
         {
             _currentAngle += RotationSpeed * Time.deltaTime * -_playerInput.MovementAxis().x;
+            Debug.Log(_currentAngle);
             UnitView.Rotate(_currentAngle);
         }
     }
