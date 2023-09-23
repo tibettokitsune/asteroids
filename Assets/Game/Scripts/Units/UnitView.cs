@@ -13,7 +13,12 @@ namespace Game.Scripts.Units
 
         public void Move(Vector2 position)
         {
-            
+            transform.position = position;
+        }
+        
+        public void ForwardMove(float forwardValue)
+        {
+            transform.position += viewObject.transform.up * forwardValue;
         }
     }
 }
