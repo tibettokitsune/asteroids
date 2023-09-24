@@ -14,8 +14,6 @@ namespace Game.Scripts.Units
             _direction = Random.insideUnitCircle;
             _physicsData = new SimplePhysicsData() {Mass = 1f, LimitVelocityMagnitude = 1f, 
                 Position = spawnPosition, PreviousPosition = spawnPosition};
-Debug.Log(spawnPosition);
-            UnitView.transform.position = spawnPosition;
         }
 
         public override void UpdateItem()

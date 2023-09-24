@@ -4,7 +4,7 @@ using Object = UnityEngine.Object;
 
 namespace Game.Scripts.Units
 {
-    public class UnitPresenter : IUpdateItem
+    public class UnitPresenter : IUpdateItem, IMovingObject
     {
         protected UnitView UnitView;
 
@@ -21,5 +21,7 @@ namespace Game.Scripts.Units
         public virtual void UpdateItem()
         {
         }
+
+        public Vector2 Position => UnitView.transform.position;
     }
 }

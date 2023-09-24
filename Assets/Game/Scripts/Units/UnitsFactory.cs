@@ -11,6 +11,8 @@ namespace Game.Scripts.Units
         private UnitsConfiguration _unitsConfiguration;
 
         private Camera _camera;
+
+        private PlayerPresenter _player;
         public UnitsFactory()
         {
             _unitsConfiguration = Resources.Load<UnitsConfiguration>("UnitsViewAsset");
@@ -18,9 +20,8 @@ namespace Game.Scripts.Units
         }
         public IUpdateItem CreatePlayer(IPlayerInput playerInput, GameplayHUDPanel hud)
         {
-            var player = new PlayerPresenter(_unitsConfiguration.playerConfiguration, Vector2.zero, playerInput, hud);
-
-            return player;
+            _player = new PlayerPresenter(_unitsConfiguration.playerConfiguration, Vector2.zero, playerInput, hud);
+            return _player;
         }
 
         public IUpdateItem CreateEnemy()
@@ -36,9 +37,9 @@ namespace Game.Scripts.Units
             }
             else
             {
-                var asteroid = new AsteroidPresenter(_unitsConfiguration.asteroidConfiguration, worldPosition);
+                var alien = new AlienPresenter(_unitsConfiguration.alienConfiguration, worldPosition, _player);
 
-                return asteroid;
+                return alien;
             }
         }
     }
