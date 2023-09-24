@@ -1,5 +1,6 @@
 using System;
 using Game.Scripts.Infrastructure;
+using Game.Scripts.UI;
 using UnityEngine;
 
 namespace Game.Scripts.Units
@@ -11,9 +12,9 @@ namespace Game.Scripts.Units
         {
             _unitsConfiguration = Resources.Load<UnitsConfiguration>("UnitsViewAsset");
         }
-        public IUpdateItem CreatePlayer(IPlayerInput playerInput)
+        public IUpdateItem CreatePlayer(IPlayerInput playerInput, GameplayHUDPanel hud)
         {
-            var player = new PlayerPresenter(_unitsConfiguration.playerConfiguration, Vector2.zero, playerInput);
+            var player = new PlayerPresenter(_unitsConfiguration.playerConfiguration, Vector2.zero, playerInput, hud);
 
             return player;
         }

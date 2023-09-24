@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Game.Scripts.UI;
 using Game.Scripts.Units;
 using UnityEngine;
 
@@ -9,14 +10,14 @@ namespace Game.Scripts.Infrastructure
     {
         private List<IUpdateItem> _systemsForUpdate = new List<IUpdateItem>();
         private UnitsFactory _unitsFactory;
-        
+        private GameplayHUDPanel _hudPanel;
         private void Start()
         {
             _unitsFactory = new UnitsFactory();
             var timerSystem = new SpawnTimerSystem(SpawnEnemy);
             _systemsForUpdate.Add(timerSystem);
-            
-            var player = _unitsFactory.CreatePlayer(new PlayerInput());
+            _hudPanel = Instantiate(Resources.Load<GameplayHUDPanel>("GameplayHUD"));
+            var player = _unitsFactory.CreatePlayer(new PlayerInput(), _hudPanel);
             _systemsForUpdate.Add(player);
             
         }

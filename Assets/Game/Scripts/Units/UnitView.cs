@@ -20,5 +20,7 @@ namespace Game.Scripts.Units
         {
             transform.position += viewObject.transform.up * forwardValue;
         }
+
+        public Vector3 ViewForward() => viewObject.transform.up;
     }
 }

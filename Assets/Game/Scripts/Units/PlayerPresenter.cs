@@ -1,23 +1,30 @@
 using Game.Scripts.Infrastructure;
+using Game.Scripts.UI;
 using UnityEngine;
 
 namespace Game.Scripts.Units
 {
     public class PlayerPresenter : UnitPresenter
     {
+        private GameplayHUDPanel _hud;
         private readonly IPlayerInput _playerInput;
         private readonly Camera _camera;
         
         private float _currentAngle;
         private float _forwardImpulse;
+        private Vector2 _cashPosition;
+        private SimplePhysicsData _physicsData;
+        private const float RotationSpeed = 100f;
+        private const float Braking = 0.1f;
+        private const float MovementTreshhold = 0.1f;
         
-        private const float RotationSpeed = 80f;
-        private const float Braking = 0.02f;
-        private const float MovementTreshhold = 0.01f;
-        public PlayerPresenter(UnitConfiguration unitConfiguration, Vector2 spawnPosition, IPlayerInput playerInput) : base(unitConfiguration, spawnPosition)
+        public PlayerPresenter(UnitConfiguration unitConfiguration, Vector2 spawnPosition, 
+            IPlayerInput playerInput, GameplayHUDPanel hud) : base(unitConfiguration, spawnPosition)
         {
             _playerInput = playerInput;
             _camera = Camera.main;
+            _hud = hud;
+            _physicsData = new SimplePhysicsData() {Mass = 1f};
         }
 
         public override void UpdateItem()
@@ -43,38 +50,38 @@ namespace Game.Scripts.Units
 
         private void ForwardMovement()
         {
-            if (Mathf.Abs( _playerInput.MovementAxis().y) > MovementTreshhold)
-            {
-                _forwardImpulse += Time.deltaTime * Configuration.movementSpeed * _playerInput.MovementAxis().y;
-            }
-            else
-            {
-                if (Mathf.Abs(_forwardImpulse) > MovementTreshhold)
-                {
-                    if (_forwardImpulse > 0)
-                    {
-                        _forwardImpulse -= Time.deltaTime * Braking;
-                    }
-
-                    if (_forwardImpulse < 0)
-                    {
-                        _forwardImpulse -= Time.deltaTime * Braking;
-                    }
-                }
-                else
-                {
-                    _forwardImpulse = 0f;
-                }
-            }
-
-            UnitView.ForwardMove(_forwardImpulse);
+            _physicsData.ComputePosition(
+                UnitView.ViewForward() * _playerInput.MovementAxis().y);
+            UnitView.Move(_physicsData.Position);
+            _hud.UpdateVelocity(_physicsData.Velocity.magnitude);
         }
 
         private void Rotation()
         {
             _currentAngle += RotationSpeed * Time.deltaTime * -_playerInput.MovementAxis().x;
-            Debug.Log(_currentAngle);
             UnitView.Rotate(_currentAngle);
+            _hud.UpdateRotationAngle(_currentAngle);
         }
+    }
+}
+
+public class SimplePhysicsData
+{
+    public float Mass;
+    public Vector2 PreviousPosition;
+    public Vector2 Position;
+    public Vector2 PreviousVelocity { get; private set; }
+    public Vector2 Velocity { get; private set; }
+
+    private const float LimitVelocityMagnitude = 10f;
+
+    public void ComputePosition(Vector2 force)
+    {
+        var acceleration = force / Mass;
+        Velocity = PreviousVelocity + acceleration * Time.deltaTime;
+        Velocity = Vector3.ClampMagnitude(Velocity, LimitVelocityMagnitude);
+        Position = PreviousPosition + (PreviousVelocity + Velocity) * Time.deltaTime;
+        PreviousPosition = Position;
+        PreviousVelocity = Velocity;
     }
 }
