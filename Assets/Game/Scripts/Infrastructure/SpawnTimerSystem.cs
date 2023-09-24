@@ -9,7 +9,7 @@ namespace Game.Scripts.Infrastructure
         public readonly Action OnSpawnTimerTriggered;
         private float _timer;
         private float _currentTime;
-        private readonly Vector2 _spawnBounds = new Vector2(1, 2);
+        private readonly Vector2 _spawnBounds = new Vector2(3, 6);
 
         public SpawnTimerSystem(Action onSpawnTimerTriggered)
         {

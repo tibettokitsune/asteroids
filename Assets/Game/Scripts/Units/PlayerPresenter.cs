@@ -24,7 +24,7 @@ namespace Game.Scripts.Units
             _playerInput = playerInput;
             _camera = Camera.main;
             _hud = hud;
-            _physicsData = new SimplePhysicsData() {Mass = 1f};
+            _physicsData = new SimplePhysicsData() {Mass = 1f, LimitVelocityMagnitude = 5f};
         }
 
         public override void UpdateItem()

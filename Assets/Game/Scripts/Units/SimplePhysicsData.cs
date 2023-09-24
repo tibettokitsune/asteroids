@@ -8,10 +8,10 @@ namespace Game.Scripts.Units
     
         public Vector2 Position { get; set; }
         public float Mass;
+        public float  LimitVelocityMagnitude;
         public Vector2 PreviousPosition{ get; set; }
         private Vector2 PreviousVelocity { get; set; }
 
-        private const float LimitVelocityMagnitude = 10f;
 
         public void ComputePosition(Vector2 force)
         {

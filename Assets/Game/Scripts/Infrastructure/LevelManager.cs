@@ -11,11 +11,12 @@ namespace Game.Scripts.Infrastructure
         private List<IUpdateItem> _systemsForUpdate = new List<IUpdateItem>();
         private UnitsFactory _unitsFactory;
         private GameplayHUDPanel _hudPanel;
+        private SpawnTimerSystem _timerSystem;
         private void Start()
         {
             _unitsFactory = new UnitsFactory();
-            var timerSystem = new SpawnTimerSystem(SpawnEnemy);
-            _systemsForUpdate.Add(timerSystem);
+            _timerSystem = new SpawnTimerSystem(SpawnEnemy);
+            //_systemsForUpdate.Add(timerSystem);
             _hudPanel = Instantiate(Resources.Load<GameplayHUDPanel>("GameplayHUD"));
             var player = _unitsFactory.CreatePlayer(new PlayerInput(), _hudPanel);
             _systemsForUpdate.Add(player);
@@ -24,8 +25,8 @@ namespace Game.Scripts.Infrastructure
 
         private void SpawnEnemy()
         {
-            // var enemy = _unitsFactory.CreateEnemy();
-            // _systemsForUpdate.Add(enemy);
+            var enemy = _unitsFactory.CreateEnemy();
+            _systemsForUpdate.Add(enemy);
         }
 
         public void UpdateItem()
@@ -35,6 +36,7 @@ namespace Game.Scripts.Infrastructure
 
         private void Update()
         {
+            _timerSystem.UpdateItem();
             foreach (var sys in _systemsForUpdate)
             {
                 sys.UpdateItem();
