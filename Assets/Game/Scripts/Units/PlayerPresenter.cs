@@ -44,8 +44,10 @@ namespace Game.Scripts.Units
             if (screenPosition.x > Screen.width) screenPosition.x -= Screen.width;
             if (screenPosition.y < 0) screenPosition.y += Screen.height;
             if (screenPosition.y > Screen.height) screenPosition.y -= Screen.height;
-
-            UnitView.Move(_camera.ScreenToWorldPoint(screenPosition));
+            var worldPosition = _camera.ScreenToWorldPoint(screenPosition);
+            UnitView.Move(worldPosition);
+            _physicsData.Position = worldPosition;
+            _physicsData.PreviousPosition = worldPosition;
         }
 
         private void ForwardMovement()
@@ -54,6 +56,7 @@ namespace Game.Scripts.Units
                 UnitView.ViewForward() * _playerInput.MovementAxis().y);
             UnitView.Move(_physicsData.Position);
             _hud.UpdateVelocity(_physicsData.Velocity.magnitude);
+            _hud.UpdateCoordinates(_physicsData.Position);
         }
 
         private void Rotation()
@@ -62,26 +65,5 @@ namespace Game.Scripts.Units
             UnitView.Rotate(_currentAngle);
             _hud.UpdateRotationAngle(_currentAngle);
         }
-    }
-}
-
-public class SimplePhysicsData
-{
-    public float Mass;
-    public Vector2 PreviousPosition;
-    public Vector2 Position;
-    public Vector2 PreviousVelocity { get; private set; }
-    public Vector2 Velocity { get; private set; }
-
-    private const float LimitVelocityMagnitude = 10f;
-
-    public void ComputePosition(Vector2 force)
-    {
-        var acceleration = force / Mass;
-        Velocity = PreviousVelocity + acceleration * Time.deltaTime;
-        Velocity = Vector3.ClampMagnitude(Velocity, LimitVelocityMagnitude);
-        Position = PreviousPosition + (PreviousVelocity + Velocity) * Time.deltaTime;
-        PreviousPosition = Position;
-        PreviousVelocity = Velocity;
     }
 }
