@@ -23,18 +23,18 @@ namespace Game.Scripts.Units.Shooting
             OnCollide = onCollide;
             _direction = direction;
             _configuration = bulletConfiguration;
-            View = Object.Instantiate(bulletConfiguration.view, position, Quaternion.identity);
+            var angle = Vector2.SignedAngle(Vector2.up, direction);
+            View = Object.Instantiate(bulletConfiguration.view, position, Quaternion.LookRotation(direction, Vector3.forward));
         }
 
         public void UpdateItem()
         {
-            View.transform.Translate(_direction * Time.deltaTime * _configuration.movementSpeed);
+            View.transform.position += (Vector3)(_direction * _configuration.movementSpeed * Time.deltaTime);
         }
 
-        public void GetDamage()
+        public virtual void GetDamage()
         {
-            OnCollide?.Invoke();
-            Object.Destroy(View.gameObject);
+            
         }
     }
 

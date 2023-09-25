@@ -5,6 +5,7 @@ using Game.Scripts.Units;
 using Game.Scripts.Units.Behaviours;
 using Game.Scripts.Units.Physics;
 using Game.Scripts.Units.Shooting;
+using Game.Scripts.Units.Shooting.ShootingSystems;
 using UnityEngine;
 
 namespace Game.Scripts.Infrastructure
@@ -24,7 +25,8 @@ namespace Game.Scripts.Infrastructure
         private readonly List<UnitPresenter> _units = new List<UnitPresenter>();
 
         private BulletsFactory _bulletsFactory;
-        private SimpleShootingSystem _simpleShootingSystem;
+        private ShootingSystem _commonShootingSystem;
+        private ShootingSystem _laserShootingSystem;
         private void Start()
         {
             _unitsFactory = new UnitsFactory();
@@ -40,8 +42,8 @@ namespace Game.Scripts.Infrastructure
             _units.Add(_player);
 
             _bulletsFactory = new BulletsFactory();
-            _simpleShootingSystem = new SimpleShootingSystem(playerInput, _bulletsFactory, _player);
-            
+            _commonShootingSystem = new CommonShootingSystem(playerInput, _bulletsFactory, _player);
+            _laserShootingSystem = new LaserShootingSystem(playerInput, _bulletsFactory, _player);
         }
 
         private void SpawnEnemy()
@@ -56,8 +58,9 @@ namespace Game.Scripts.Infrastructure
         private void Update()
         {
             _timerSystem.UpdateItem();
-            _simpleShootingSystem.UpdateItem();
-            BulletCollisionsCheck();
+            
+            WeaponCompute();
+            
             foreach (var sys in _units)
             {
                 sys.UpdateItem();
@@ -66,16 +69,32 @@ namespace Game.Scripts.Infrastructure
             CheckLevelFail();
         }
 
-        private void BulletCollisionsCheck()
+        private void WeaponCompute()
         {
-            var damaged = _simpleShootingSystem.ComputeCollision(_units);
+            ComputeCommonWeapon();
+            ComputeLaser();
+        }
 
-            if (damaged != null)
+        private void ComputeLaser()
+        {
+            _laserShootingSystem.UpdateItem();
+            BulletCollisionsCheck(_laserShootingSystem);
+        }
+
+        private void ComputeCommonWeapon()
+        {
+            _commonShootingSystem.UpdateItem();
+            BulletCollisionsCheck(_commonShootingSystem);
+        }
+
+        private void BulletCollisionsCheck(ShootingSystem shootingSystem)
+        {
+            var damaged = shootingSystem.ComputeCollision(_units);
+
+            if (damaged == null) return;
+            foreach (var d in damaged)
             {
-                foreach (var d in damaged)
-                {
-                    _units.Remove(d);
-                }
+                _units.Remove(d);
             }
         }
 

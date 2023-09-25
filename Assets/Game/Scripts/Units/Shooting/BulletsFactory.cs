@@ -17,13 +17,14 @@ namespace Game.Scripts.Units.Shooting
         }
         public BulletPresenter SpawnDefaultBullet(Vector2 position, Vector2 direction)
         {
-            var bullet = new BulletPresenter(null, position, direction, _configuration.defaultProjectileConfiguration);
+            var bullet = new DefaultBullet(null, position, direction, _configuration.defaultProjectileConfiguration);
             return bullet;
         }
 
         public BulletPresenter SpawnLaserBullet(Vector2 position, Vector2 direction)
         {
-            throw new System.NotImplementedException();
+            var bullet = new LaserBullet(null, position, direction, _configuration.laserConfiguration);
+            return bullet;
         }
     }
 }
