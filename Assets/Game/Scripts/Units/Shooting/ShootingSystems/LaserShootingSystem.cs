@@ -11,8 +11,8 @@ namespace Game.Scripts.Units.Shooting.ShootingSystems
     {
         private float _timer;
         private int _availableNumberOfShoots;
-        private const float RechargeTime = 3f;
-        private const int MaximumNumberOfShoots = 5;
+        private const float RechargeTime = 10f;
+        private const int MaximumNumberOfShoots = 2;
         private readonly GameplayHUDPanel _hud;
         
         public LaserShootingSystem(IPlayerInput input, IBulletsFactory bulletsFactory, 

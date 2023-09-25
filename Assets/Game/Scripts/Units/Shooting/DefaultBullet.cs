@@ -6,14 +6,15 @@ namespace Game.Scripts.Units.Shooting
 {
     public class DefaultBullet : BulletPresenter
     {
-        public DefaultBullet(Action onCollide, Vector2 position, Vector2 direction, BulletConfiguration bulletConfiguration) : base(onCollide, position, direction, bulletConfiguration)
+        public DefaultBullet(Action<Vector2> onCollide, Vector2 position, Vector2 direction, 
+            BulletConfiguration bulletConfiguration) : base(onCollide, position, direction, bulletConfiguration)
         {
         }
 
         public override void GetDamage()
         {
             base.GetDamage();
-            OnCollide?.Invoke();
+            OnCollide?.Invoke(View.transform.position);
             Object.Destroy(View.gameObject);
         }
     }

@@ -30,12 +30,16 @@ namespace Game.Scripts.Infrastructure
         private void Start()
         {
             _unitsFactory = new UnitsFactory();
+            _unitsFactory.OnUnitSpawn += unit =>
+            {
+                _units.Add(unit);
+            };
             _timerSystem = new SpawnTimerSystem(SpawnEnemy);
             _hudPanel = Instantiate(Resources.Load<GameplayHUDPanel>("GameplayHUD"));
             _scoreController = new ScoreController(_hudPanel);
             
             var playerInput = new PlayerInput();
-            _player = _unitsFactory.CreatePlayer(playerInput, _hudPanel, () =>
+            _player = _unitsFactory.CreatePlayer(playerInput, _hudPanel, pos =>
             {
                 OnGameOver?.Invoke(_scoreController.Score);
             });
@@ -45,14 +49,16 @@ namespace Game.Scripts.Infrastructure
             _commonShootingSystem = new CommonShootingSystem(playerInput, _bulletsFactory, _player);
             _laserShootingSystem = new LaserShootingSystem(playerInput, _bulletsFactory, _player, _hudPanel);
         }
+        
+        
 
         private void SpawnEnemy()
         {
-            var enemy = _unitsFactory.CreateEnemy(() =>
+            _unitsFactory.CreateEnemy(pos =>
             {
                 _scoreController.IncrementScore();
             });
-            _units.Add(enemy);
+            
         }
 
         private void Update()
@@ -102,7 +108,7 @@ namespace Game.Scripts.Infrastructure
         {
             var isCollide = CollisionHelper.CalculateCollisionForTarget(_player, _units);
             if (!isCollide) return;
-            _player.OnCollide.Invoke();
+            _player.OnCollide.Invoke(_player.Position);
         }
     }
 }

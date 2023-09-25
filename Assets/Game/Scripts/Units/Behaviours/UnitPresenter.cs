@@ -15,7 +15,7 @@ namespace Game.Scripts.Units.Behaviours
         private float _angle;
 
         protected UnitConfiguration Configuration;
-        public UnitPresenter(UnitConfiguration unitConfiguration, Vector2 spawnPosition, Action onCollide)
+        public UnitPresenter(UnitConfiguration unitConfiguration, Vector2 spawnPosition, Action<Vector2> onCollide)
         {
             UnitView = Object.Instantiate(unitConfiguration.view, spawnPosition, Quaternion.identity);
             Configuration = unitConfiguration;
@@ -23,7 +23,7 @@ namespace Game.Scripts.Units.Behaviours
         }
 
         public virtual void UpdateItem(){}
-        public Action OnCollide { get; }
+        public Action<Vector2> OnCollide { get; }
         public virtual float ColliderRadius => 1f;
         public virtual Layer Layer { get; }
         public Vector2 Position => UnitView.transform.position;
@@ -31,8 +31,10 @@ namespace Game.Scripts.Units.Behaviours
         public Vector2 Direction => UnitView.ViewForward();
         public void GetDamage()
         {
-            OnCollide.Invoke();
+            OnCollide.Invoke(UnitView.transform.position);
             Object.Destroy(UnitView.gameObject);
         }
+
+        public void ScaleUnit(float scale) => UnitView.ScaleView(scale);
     }
 }

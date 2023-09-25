@@ -8,7 +8,7 @@ namespace Game.Scripts.Units.Behaviours
     {
         private readonly UnitPresenter _persecutionTarget;
         private readonly SimplePhysicsData _physicsData;
-        public AlienPresenter(UnitConfiguration unitConfiguration, Vector2 spawnPosition,Action onCollide,
+        public AlienPresenter(UnitConfiguration unitConfiguration, Vector2 spawnPosition,Action<Vector2> onCollide,
             UnitPresenter persecutionTarget) : base(unitConfiguration, spawnPosition, onCollide)
         {
             _persecutionTarget = persecutionTarget;

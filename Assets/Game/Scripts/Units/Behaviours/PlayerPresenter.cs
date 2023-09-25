@@ -20,7 +20,7 @@ namespace Game.Scripts.Units.Behaviours
         private const float Braking = 0.1f;
         private const float MovementTreshhold = 0.1f;
         
-        public PlayerPresenter(UnitConfiguration unitConfiguration, Vector2 spawnPosition,Action onCollide,
+        public PlayerPresenter(UnitConfiguration unitConfiguration, Vector2 spawnPosition,Action<Vector2> onCollide,
             IPlayerInput playerInput, GameplayHUDPanel hud) : base(unitConfiguration, spawnPosition, onCollide)
         {
             _playerInput = playerInput;

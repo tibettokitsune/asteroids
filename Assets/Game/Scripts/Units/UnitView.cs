@@ -22,5 +22,7 @@ namespace Game.Scripts.Units
         }
 
         public Vector3 ViewForward() => viewObject.transform.up;
+
+        public void ScaleView(float scale) => viewObject.transform.localScale = Vector3.one * scale;
     }
 }

@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: DefaultBulletConfiguration
   m_EditorClassIdentifier: 
   view: {fileID: 3824048825467927687, guid: 5c14da4344abb44aeb03f4099c12c482, type: 3}
-  movementSpeed: 5
+  movementSpeed: 10

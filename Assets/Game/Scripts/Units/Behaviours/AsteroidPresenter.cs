@@ -11,7 +11,7 @@ namespace Game.Scripts.Units.Behaviours
         private readonly Vector2 _direction;
         private readonly SimplePhysicsData _physicsData;
         
-        public AsteroidPresenter(UnitConfiguration unitConfiguration, Vector2 spawnPosition, Action onCollide) 
+        public AsteroidPresenter(UnitConfiguration unitConfiguration, Vector2 spawnPosition, Action<Vector2> onCollide) 
             : base(unitConfiguration, spawnPosition, onCollide)
         {
             _camera = Camera.main;

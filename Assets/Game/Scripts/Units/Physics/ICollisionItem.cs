@@ -10,7 +10,7 @@ namespace Game.Scripts.Units.Physics
     }
     public interface ICollisionItem
     {
-        public Action OnCollide { get; } 
+        public Action<Vector2> OnCollide { get; } 
         public float ColliderRadius { get; }
         public Layer Layer { get; }
         public Vector2 Position { get; }
