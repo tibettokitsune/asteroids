@@ -38,7 +38,7 @@ namespace Game.Scripts.Infrastructure
             StartGame();
         }
 
-        private void GameOver()
+        private void GameOver(int score)
         {
             _levelManager.OnGameOver -= GameOver;
             var unloadingScene = SceneLoader.UnloadSceneByName(GameplaySceneName);
@@ -46,6 +46,7 @@ namespace Game.Scripts.Infrastructure
             {
                 _levelManager = null;
                 gameOverPanel.Show();
+                gameOverPanel.UpdateScoreLbl(score);
             };
         }
     }

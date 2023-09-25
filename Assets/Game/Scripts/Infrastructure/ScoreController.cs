@@ -4,19 +4,19 @@ namespace Game.Scripts.Infrastructure
 {
     public class ScoreController
     {
+        public int Score { get; private set; }
         private readonly GameplayHUDPanel _hud;
-        private int _score;
         
         public ScoreController(GameplayHUDPanel hud)
         {
             _hud = hud;
-            _hud.UpdateScore(_score);
+            _hud.UpdateScore(Score);
         }
-
+        
         public void IncrementScore()
         {
-            _score++;
-            _hud.UpdateScore(_score);
+            Score++;
+            _hud.UpdateScore(Score);
         }
     }
 }

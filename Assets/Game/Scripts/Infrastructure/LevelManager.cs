@@ -11,7 +11,7 @@ namespace Game.Scripts.Infrastructure
 {
     public class LevelManager : MonoBehaviour
     {
-        public Action OnGameOver { get; set; }
+        public Action<int> OnGameOver { get; set; }
         
         private GameplayHUDPanel _hudPanel;
 
@@ -35,7 +35,7 @@ namespace Game.Scripts.Infrastructure
             var playerInput = new PlayerInput();
             _player = _unitsFactory.CreatePlayer(playerInput, _hudPanel, () =>
             {
-                OnGameOver?.Invoke();
+                OnGameOver?.Invoke(_scoreController.Score);
             });
             _units.Add(_player);
 
