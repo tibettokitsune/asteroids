@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7f4f6a370c24aaf905f87c8d83e7a97, type: 3}
+  m_Name: LaserBulletConfiguration
+  m_EditorClassIdentifier: 
+  view: {fileID: 1919292006698459643, guid: d7bfd43c717c8424baceb9491d7bc35f, type: 3}
+  movementSpeed: 5

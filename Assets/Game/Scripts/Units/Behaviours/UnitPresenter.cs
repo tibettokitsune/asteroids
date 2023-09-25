@@ -1,11 +1,13 @@
 using System;
 using Game.Scripts.Infrastructure;
+using Game.Scripts.Units.Physics;
+using Game.Scripts.Units.Shooting;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
 namespace Game.Scripts.Units.Behaviours
 {
-    public class UnitPresenter : IUpdateItem, ICollisionItem
+    public class UnitPresenter : IUpdateItem, ICollisionItem, IKillable
     {
         protected UnitView UnitView;
 
@@ -25,10 +27,12 @@ namespace Game.Scripts.Units.Behaviours
         public virtual float ColliderRadius => 1f;
         public virtual Layer Layer { get; }
         public Vector2 Position => UnitView.transform.position;
-    }
 
-    public enum Layer
-    {
-        Player, Enemy
+        public Vector2 Direction => UnitView.ViewForward();
+        public void GetDamage()
+        {
+            OnCollide.Invoke();
+            Object.Destroy(UnitView.gameObject);
+        }
     }
 }

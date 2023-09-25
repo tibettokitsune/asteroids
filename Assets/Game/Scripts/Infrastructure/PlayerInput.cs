@@ -6,10 +6,10 @@ namespace Game.Scripts.Infrastructure
     public class PlayerInput : IPlayerInput
     {
         public bool IsSimpleShoot() 
-            =>  Keyboard.current.pKey.wasPressedThisFrame;
+            =>  Keyboard.current.pKey.isPressed;
 
         public bool IsLaserShoot()
-            =>  Keyboard.current.lKey.wasPressedThisFrame;
+            =>  Keyboard.current.lKey.isPressed;
 
         private float VerticalAxis()
         {

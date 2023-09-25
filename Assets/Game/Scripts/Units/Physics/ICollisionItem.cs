@@ -1,8 +1,13 @@
 using System;
 using UnityEngine;
 
-namespace Game.Scripts.Units.Behaviours
+namespace Game.Scripts.Units.Physics
 {
+    
+    public enum Layer
+    {
+        Player, Enemy
+    }
     public interface ICollisionItem
     {
         public Action OnCollide { get; } 

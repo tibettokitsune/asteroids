@@ -10,6 +10,7 @@ namespace Game.Scripts.UI
         [SerializeField] private TextMeshProUGUI velocityLbl;
         [SerializeField] private TextMeshProUGUI laserShootsLbl;
         [SerializeField] private TextMeshProUGUI laserCooldownLbl;
+        [SerializeField] private TextMeshProUGUI scoreLbl;
 
         public void UpdateCoordinates(Vector2 coordinates) => coordinatesLbl.text = coordinates.ToString();
         public void UpdateRotationAngle(float angle)
@@ -20,7 +21,9 @@ namespace Game.Scripts.UI
         }
 
         public void UpdateVelocity(float velocity) => velocityLbl.text = velocity.ToString("F2");
-        
-        
+
+        public void UpdateScore(int score) => scoreLbl.text = score.ToString();
+
+
     }
 }

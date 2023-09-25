@@ -9,19 +9,19 @@ namespace Game.Scripts.Units
 {
     public class UnitsFactory
     {
-        private UnitsConfiguration _unitsConfiguration;
+        private ViewsConfiguration _viewsConfiguration;
 
         private Camera _camera;
 
         private PlayerPresenter _player;
         public UnitsFactory()
         {
-            _unitsConfiguration = Resources.Load<UnitsConfiguration>("UnitsViewAsset");
+            _viewsConfiguration = Resources.Load<ViewsConfiguration>("UnitsViewAsset");
             _camera = Camera.main;
         }
         public UnitPresenter CreatePlayer(IPlayerInput playerInput, GameplayHUDPanel hud, Action collideAction)
         {
-            _player = new PlayerPresenter(_unitsConfiguration.playerConfiguration, Vector2.zero, collideAction, playerInput, hud);
+            _player = new PlayerPresenter(_viewsConfiguration.playerConfiguration, Vector2.zero, collideAction, playerInput, hud);
             return _player;
         }
 
@@ -32,13 +32,13 @@ namespace Game.Scripts.Units
             var worldPosition = _camera.ScreenToWorldPoint(position);
             if (seed > 50)
             {
-                var asteroid = new AsteroidPresenter(_unitsConfiguration.asteroidConfiguration, worldPosition, collideAction);
+                var asteroid = new AsteroidPresenter(_viewsConfiguration.asteroidConfiguration, worldPosition, collideAction);
 
                 return asteroid;
             }
             else
             {
-                var alien = new AlienPresenter(_unitsConfiguration.alienConfiguration, worldPosition, collideAction, _player);
+                var alien = new AlienPresenter(_viewsConfiguration.alienConfiguration, worldPosition, collideAction, _player);
 
                 return alien;
             }

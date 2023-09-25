@@ -15,3 +15,5 @@ MonoBehaviour:
   playerConfiguration: {fileID: 11400000, guid: 7c9774e5232504312bb8c3bb23752e82, type: 2}
   asteroidConfiguration: {fileID: 11400000, guid: 10cb1053d5bb6441885c456155dbdd79, type: 2}
   alienConfiguration: {fileID: 11400000, guid: c0f6cbf784c1445d78bac09c1bbbce80, type: 2}
+  defaultProjectileConfiguration: {fileID: 11400000, guid: 53dc21ce05b4d4faaa53aee230e3ec90, type: 2}
+  laserConfiguration: {fileID: 11400000, guid: e90696ea1571b4ee296043eb83c0a883, type: 2}

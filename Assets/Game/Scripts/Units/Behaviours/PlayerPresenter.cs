@@ -1,8 +1,7 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using Game.Scripts.Infrastructure;
 using Game.Scripts.UI;
+using Game.Scripts.Units.Physics;
 using UnityEngine;
 
 namespace Game.Scripts.Units.Behaviours
@@ -72,15 +71,5 @@ namespace Game.Scripts.Units.Behaviours
             _hud.UpdateRotationAngle(_currentAngle);
         }
 
-    }
-
-    public static class CollisionHelper
-    {
-        public static bool CalculateCollisionForTarget(UnitPresenter targetItem, List<UnitPresenter> allItems)
-        {
-            return allItems.Where(x =>
-                    Vector2.Distance(targetItem.Position, x.Position) <= targetItem.ColliderRadius)
-                    .Any(x => x.Layer != targetItem.Layer);
-        }
     }
 }
