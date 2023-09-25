@@ -1,12 +1,12 @@
 using System;
 using UnityEngine;
 
-namespace Game.Scripts.Units
+namespace Game.Scripts.Units.Behaviours
 {
     public class AlienPresenter : UnitPresenter, ICollisionItem
     {
-        private UnitPresenter _persecutionTarget;
-        private SimplePhysicsData _physicsData;
+        private readonly UnitPresenter _persecutionTarget;
+        private readonly SimplePhysicsData _physicsData;
         public AlienPresenter(UnitConfiguration unitConfiguration, Vector2 spawnPosition,Action onCollide,
             UnitPresenter persecutionTarget) : base(unitConfiguration, spawnPosition, onCollide)
         {

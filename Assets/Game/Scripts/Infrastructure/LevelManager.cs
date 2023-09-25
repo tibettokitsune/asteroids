@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Game.Scripts.UI;
 using Game.Scripts.Units;
+using Game.Scripts.Units.Behaviours;
 using UnityEngine;
 
 namespace Game.Scripts.Infrastructure
@@ -9,20 +10,25 @@ namespace Game.Scripts.Infrastructure
     public class LevelManager : MonoBehaviour
     {
         public Action OnGameOver { get; set; }
-        private readonly List<UnitPresenter> _systemsForUpdate = new List<UnitPresenter>();
-        private UnitsFactory _unitsFactory;
+        
         private GameplayHUDPanel _hudPanel;
+        
         private SpawnTimerSystem _timerSystem;
+        
+        private UnitsFactory _unitsFactory;
+        private UnitPresenter _player;
+        private readonly List<UnitPresenter> _systemsForUpdate = new List<UnitPresenter>();
+
         private void Start()
         {
             _unitsFactory = new UnitsFactory();
             _timerSystem = new SpawnTimerSystem(SpawnEnemy);
             _hudPanel = Instantiate(Resources.Load<GameplayHUDPanel>("GameplayHUD"));
-            var player = _unitsFactory.CreatePlayer(new PlayerInput(), _hudPanel, () =>
+            _player = _unitsFactory.CreatePlayer(new PlayerInput(), _hudPanel, () =>
             {
-                Debug.Log("Player collides");
+                //OnGameOver?.Invoke();
             });
-            _systemsForUpdate.Add(player);
+            _systemsForUpdate.Add(_player);
             
         }
 
@@ -42,14 +48,16 @@ namespace Game.Scripts.Infrastructure
             foreach (var sys in _systemsForUpdate)
             {
                 sys.UpdateItem();
-                
-                var isCollide = CollisionHelper.CalculateCollisionForTarget(sys, _systemsForUpdate);
-                if (isCollide)
-                {
-                    sys.OnCollide.Invoke();
-                    OnGameOver?.Invoke();
-                }
             }
+            
+            CheckLevelFail();
+        }
+
+        private void CheckLevelFail()
+        {
+            var isCollide = CollisionHelper.CalculateCollisionForTarget(_player, _systemsForUpdate);
+            if (!isCollide) return;
+            _player.OnCollide.Invoke();
         }
     }
 }

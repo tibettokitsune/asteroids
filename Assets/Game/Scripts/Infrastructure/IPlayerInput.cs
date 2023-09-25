@@ -6,6 +6,7 @@ namespace Game.Scripts.Infrastructure
     {
         Vector2 MovementAxis();
 
-        bool IsShoot();
+        bool IsSimpleShoot();
+        bool IsLaserShoot();
     }
 }

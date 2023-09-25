@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 607158607}
   - component: {fileID: 607158606}
   m_Layer: 5
-  m_Name: StartGameBtn
+  m_Name: RestartGameBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -979,7 +979,7 @@ GameObject:
   - component: {fileID: 1795183245}
   - component: {fileID: 1795183244}
   m_Layer: 5
-  m_Name: StartGameBtnLbl
+  m_Name: RestartGameBtnLbl
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1025,7 +1025,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: start game
+  m_text: restart
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 546479c3cd9174b8e814a46ca099f7b5, type: 2}
   m_sharedMaterial: {fileID: 3999150031951962024, guid: 546479c3cd9174b8e814a46ca099f7b5, type: 2}
@@ -1052,7 +1052,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 32.9
+  m_fontSize: 42.65
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1353,6 +1353,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lobbyPanel: {fileID: 1277713665}
+  gameOverPanel: {fileID: 1967462123}
 --- !u!4 &2075120635
 Transform:
   m_ObjectHideFlags: 0

@@ -5,7 +5,7 @@ using Game.Scripts.Infrastructure;
 using Game.Scripts.UI;
 using UnityEngine;
 
-namespace Game.Scripts.Units
+namespace Game.Scripts.Units.Behaviours
 {
     public class PlayerPresenter : UnitPresenter, ICollisionItem
     {

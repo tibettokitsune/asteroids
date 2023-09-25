@@ -5,8 +5,11 @@ namespace Game.Scripts.Infrastructure
 {
     public class PlayerInput : IPlayerInput
     {
-        public bool IsShoot() 
-            =>  Input.GetKey(KeyCode.Space) || Input.GetMouseButton(0);
+        public bool IsSimpleShoot() 
+            =>  Keyboard.current.pKey.wasPressedThisFrame;
+
+        public bool IsLaserShoot()
+            =>  Keyboard.current.lKey.wasPressedThisFrame;
 
         private float VerticalAxis()
         {

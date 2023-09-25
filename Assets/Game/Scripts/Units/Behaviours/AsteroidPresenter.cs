@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace Game.Scripts.Units
+namespace Game.Scripts.Units.Behaviours
 {
     public class AsteroidPresenter : UnitPresenter
     {

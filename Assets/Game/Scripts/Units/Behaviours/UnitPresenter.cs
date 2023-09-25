@@ -3,7 +3,7 @@ using Game.Scripts.Infrastructure;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace Game.Scripts.Units
+namespace Game.Scripts.Units.Behaviours
 {
     public class UnitPresenter : IUpdateItem, ICollisionItem
     {
@@ -25,14 +25,6 @@ namespace Game.Scripts.Units
         public virtual float ColliderRadius => 1f;
         public virtual Layer Layer { get; }
         public Vector2 Position => UnitView.transform.position;
-    }
-
-    public interface ICollisionItem
-    {
-        public Action OnCollide { get; } 
-        public float ColliderRadius { get; }
-        public Layer Layer { get; }
-        public Vector2 Position { get; }
     }
 
     public enum Layer
