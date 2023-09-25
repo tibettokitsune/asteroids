@@ -25,5 +25,9 @@ namespace Game.Scripts.UI
         public void UpdateScore(int score) => scoreLbl.text = score.ToString();
 
 
+        public void UpdateLaserTimer(float rechargeTime) => laserCooldownLbl.text = rechargeTime.ToString("F1");
+
+        public void UpdateNumberOfLaserShoots(int availableNumberOfShoots) =>
+            laserShootsLbl.text = availableNumberOfShoots.ToString();
     }
 }

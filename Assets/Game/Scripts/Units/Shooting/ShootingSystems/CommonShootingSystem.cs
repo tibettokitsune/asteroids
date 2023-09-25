@@ -34,6 +34,7 @@ namespace Game.Scripts.Units.Shooting.ShootingSystems
 
         protected override void Shoot()
         {
+            base.Shoot();
             Bullets.Add(BulletsFactory.SpawnDefaultBullet(SourceUnit.Position, SourceUnit.Direction));
         }
 

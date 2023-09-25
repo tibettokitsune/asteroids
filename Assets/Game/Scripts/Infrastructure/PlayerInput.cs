@@ -9,7 +9,7 @@ namespace Game.Scripts.Infrastructure
             =>  Keyboard.current.pKey.isPressed;
 
         public bool IsLaserShoot()
-            =>  Keyboard.current.lKey.isPressed;
+            =>  Keyboard.current.lKey.wasPressedThisFrame;
 
         private float VerticalAxis()
         {

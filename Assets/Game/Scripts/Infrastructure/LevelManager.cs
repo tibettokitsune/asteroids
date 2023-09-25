@@ -43,7 +43,7 @@ namespace Game.Scripts.Infrastructure
 
             _bulletsFactory = new BulletsFactory();
             _commonShootingSystem = new CommonShootingSystem(playerInput, _bulletsFactory, _player);
-            _laserShootingSystem = new LaserShootingSystem(playerInput, _bulletsFactory, _player);
+            _laserShootingSystem = new LaserShootingSystem(playerInput, _bulletsFactory, _player, _hudPanel);
         }
 
         private void SpawnEnemy()
