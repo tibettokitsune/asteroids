@@ -59,6 +59,7 @@ namespace Game.Scripts.Units
             var asteroid = new AsteroidPresenter(_viewsConfiguration.asteroidConfiguration, 
                 worldPosition + Random.insideUnitCircle, collideAction);
             asteroid.ScaleUnit(Random.Range(0.3f, 0.6f));
+            asteroid.UpdateAsteroidSpeed(10f);
             OnUnitSpawn.Invoke(asteroid);
             return asteroid;
         }

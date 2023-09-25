@@ -51,5 +51,11 @@ namespace Game.Scripts.Units.Behaviours
         
         public override float ColliderRadius => 1f;
         public override Layer Layer => Layer.Enemy;
+
+        public void UpdateAsteroidSpeed(float speed)
+        {
+            _physicsData.Velocity = _direction * speed;
+            _physicsData.PreviousVelocity = _direction * speed;
+        }
     }
 }

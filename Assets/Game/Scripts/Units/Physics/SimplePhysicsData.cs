@@ -4,13 +4,13 @@ namespace Game.Scripts.Units
 {
     public class SimplePhysicsData
     {
-        public Vector2 Velocity { get; private set; }
+        public Vector2 Velocity { get; set; }
     
         public Vector2 Position { get; set; }
         public float Mass;
         public float  LimitVelocityMagnitude;
         public Vector2 PreviousPosition{ get; set; }
-        private Vector2 PreviousVelocity { get; set; }
+        public Vector2 PreviousVelocity { get; set; }
 
 
         public void ComputePosition(Vector2 force)
