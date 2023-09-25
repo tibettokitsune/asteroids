@@ -25,8 +25,7 @@ namespace Game.Scripts.Infrastructure
             return 0f;
         }
         
-        public Vector2 MovementAxis() 
-            => new Vector2(HorizontalAxis(), VerticalAxis());
+        public Vector2 MovementAxis() => new(HorizontalAxis(), VerticalAxis());
 
     }
 }

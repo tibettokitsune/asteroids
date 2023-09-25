@@ -6,14 +6,14 @@ namespace Game.Scripts.Infrastructure
 {
     public class SpawnTimerSystem : IUpdateItem
     {
-        public readonly Action OnSpawnTimerTriggered;
+        private readonly Action _onSpawnTimerTriggered;
         private float _timer;
         private float _currentTime;
         private readonly Vector2 _spawnBounds = new Vector2(3, 6);
 
         public SpawnTimerSystem(Action onSpawnTimerTriggered)
         {
-            OnSpawnTimerTriggered = onSpawnTimerTriggered;
+            _onSpawnTimerTriggered = onSpawnTimerTriggered;
         }
 
         public void UpdateItem()
@@ -27,7 +27,7 @@ namespace Game.Scripts.Infrastructure
 
         private void UpdateTimer()
         {
-            OnSpawnTimerTriggered.Invoke();
+            _onSpawnTimerTriggered.Invoke();
             _currentTime = Random.Range(_spawnBounds.x, _spawnBounds.y);
             _timer += _currentTime;
         }

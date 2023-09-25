@@ -13,17 +13,12 @@ namespace Game.Scripts.Infrastructure
     public class LevelManager : MonoBehaviour
     {
         public Action<int> OnGameOver { get; set; }
-        
         private GameplayHUDPanel _hudPanel;
-
         private ScoreController _scoreController;
-        
         private SpawnTimerSystem _timerSystem;
-        
         private UnitsFactory _unitsFactory;
         private UnitPresenter _player;
         private readonly List<UnitPresenter> _units = new List<UnitPresenter>();
-
         private BulletsFactory _bulletsFactory;
         private ShootingSystem _commonShootingSystem;
         private ShootingSystem _laserShootingSystem;
@@ -39,7 +34,7 @@ namespace Game.Scripts.Infrastructure
             _scoreController = new ScoreController(_hudPanel);
             
             var playerInput = new PlayerInput();
-            _player = _unitsFactory.CreatePlayer(playerInput, _hudPanel, pos =>
+            _player = _unitsFactory.CreatePlayer(playerInput, _hudPanel, _ =>
             {
                 OnGameOver?.Invoke(_scoreController.Score);
             });
@@ -54,7 +49,7 @@ namespace Game.Scripts.Infrastructure
 
         private void SpawnEnemy()
         {
-            _unitsFactory.CreateEnemy(pos =>
+            _unitsFactory.CreateEnemy(_ =>
             {
                 _scoreController.IncrementScore();
             });
