@@ -1,10 +1,13 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using Game.Scripts.Infrastructure;
 using Game.Scripts.UI;
 using UnityEngine;
 
 namespace Game.Scripts.Units
 {
-    public class PlayerPresenter : UnitPresenter
+    public class PlayerPresenter : UnitPresenter, ICollisionItem
     {
         private GameplayHUDPanel _hud;
         private readonly IPlayerInput _playerInput;
@@ -13,13 +16,13 @@ namespace Game.Scripts.Units
         private float _currentAngle;
         private float _forwardImpulse;
         private Vector2 _cashPosition;
-        private SimplePhysicsData _physicsData;
+        private readonly SimplePhysicsData _physicsData;
         private const float RotationSpeed = 100f;
         private const float Braking = 0.1f;
         private const float MovementTreshhold = 0.1f;
         
-        public PlayerPresenter(UnitConfiguration unitConfiguration, Vector2 spawnPosition, 
-            IPlayerInput playerInput, GameplayHUDPanel hud) : base(unitConfiguration, spawnPosition)
+        public PlayerPresenter(UnitConfiguration unitConfiguration, Vector2 spawnPosition,Action onCollide,
+            IPlayerInput playerInput, GameplayHUDPanel hud) : base(unitConfiguration, spawnPosition, onCollide)
         {
             _playerInput = playerInput;
             _camera = Camera.main;
@@ -27,6 +30,9 @@ namespace Game.Scripts.Units
             _physicsData = new SimplePhysicsData() {Mass = 1f, LimitVelocityMagnitude = 5f};
         }
 
+        public override float ColliderRadius => 1f;
+        public override Layer Layer => Layer.Player;
+        
         public override void UpdateItem()
         {
             base.UpdateItem();
@@ -64,6 +70,17 @@ namespace Game.Scripts.Units
             _currentAngle += RotationSpeed * Time.deltaTime * -_playerInput.MovementAxis().x;
             UnitView.Rotate(_currentAngle);
             _hud.UpdateRotationAngle(_currentAngle);
+        }
+
+    }
+
+    public static class CollisionHelper
+    {
+        public static bool CalculateCollisionForTarget(UnitPresenter targetItem, List<UnitPresenter> allItems)
+        {
+            return allItems.Where(x =>
+                    Vector2.Distance(targetItem.Position, x.Position) <= targetItem.ColliderRadius)
+                    .Any(x => x.Layer != targetItem.Layer);
         }
     }
 }

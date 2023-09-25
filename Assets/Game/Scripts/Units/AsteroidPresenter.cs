@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Game.Scripts.Units
 {
@@ -8,7 +10,8 @@ namespace Game.Scripts.Units
         private readonly Vector2 _direction;
         private readonly SimplePhysicsData _physicsData;
         
-        public AsteroidPresenter(UnitConfiguration unitConfiguration, Vector2 spawnPosition) : base(unitConfiguration, spawnPosition)
+        public AsteroidPresenter(UnitConfiguration unitConfiguration, Vector2 spawnPosition, Action onCollide) 
+            : base(unitConfiguration, spawnPosition, onCollide)
         {
             _camera = Camera.main;
             _direction = Random.insideUnitCircle;
@@ -44,5 +47,8 @@ namespace Game.Scripts.Units
         {
             //throw new System.NotImplementedException();
         }
+        
+        public override float ColliderRadius => 1f;
+        public override Layer Layer => Layer.Enemy;
     }
 }

@@ -8,7 +8,8 @@ namespace Game.Scripts.Infrastructure
 {
     public class LevelManager : MonoBehaviour
     {
-        private List<IUpdateItem> _systemsForUpdate = new List<IUpdateItem>();
+        public Action OnGameOver { get; set; }
+        private readonly List<UnitPresenter> _systemsForUpdate = new List<UnitPresenter>();
         private UnitsFactory _unitsFactory;
         private GameplayHUDPanel _hudPanel;
         private SpawnTimerSystem _timerSystem;
@@ -16,30 +17,38 @@ namespace Game.Scripts.Infrastructure
         {
             _unitsFactory = new UnitsFactory();
             _timerSystem = new SpawnTimerSystem(SpawnEnemy);
-            //_systemsForUpdate.Add(timerSystem);
             _hudPanel = Instantiate(Resources.Load<GameplayHUDPanel>("GameplayHUD"));
-            var player = _unitsFactory.CreatePlayer(new PlayerInput(), _hudPanel);
+            var player = _unitsFactory.CreatePlayer(new PlayerInput(), _hudPanel, () =>
+            {
+                Debug.Log("Player collides");
+            });
             _systemsForUpdate.Add(player);
             
         }
 
         private void SpawnEnemy()
         {
-            var enemy = _unitsFactory.CreateEnemy();
+            var enemy = _unitsFactory.CreateEnemy(() =>
+            {
+                Debug.Log("Enemy collides");
+            });
             _systemsForUpdate.Add(enemy);
-        }
-
-        public void UpdateItem()
-        {
-            throw new NotImplementedException();
         }
 
         private void Update()
         {
             _timerSystem.UpdateItem();
+
             foreach (var sys in _systemsForUpdate)
             {
                 sys.UpdateItem();
+                
+                var isCollide = CollisionHelper.CalculateCollisionForTarget(sys, _systemsForUpdate);
+                if (isCollide)
+                {
+                    sys.OnCollide.Invoke();
+                    OnGameOver?.Invoke();
+                }
             }
         }
     }

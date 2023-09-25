@@ -19,7 +19,7 @@ namespace Game.Scripts.UI
             rotationAngleLbl.text = res.ToString("F0");
         }
 
-        public void UpdateVelocity(float velocity) => velocityLbl.text = velocity.ToString("F1");
+        public void UpdateVelocity(float velocity) => velocityLbl.text = velocity.ToString("F2");
         
         
     }

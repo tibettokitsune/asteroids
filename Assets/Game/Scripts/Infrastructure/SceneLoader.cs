@@ -7,5 +7,8 @@ namespace Game.Scripts.Infrastructure
     {
         public static AsyncOperation LoadSceneByName(string sceneName) 
             => SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
+
+        public static AsyncOperation UnloadSceneByName(string sceneName)
+            => SceneManager.UnloadSceneAsync(sceneName);
     }
 }

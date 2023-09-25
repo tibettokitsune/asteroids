@@ -18,26 +18,26 @@ namespace Game.Scripts.Units
             _unitsConfiguration = Resources.Load<UnitsConfiguration>("UnitsViewAsset");
             _camera = Camera.main;
         }
-        public IUpdateItem CreatePlayer(IPlayerInput playerInput, GameplayHUDPanel hud)
+        public UnitPresenter CreatePlayer(IPlayerInput playerInput, GameplayHUDPanel hud, Action collideAction)
         {
-            _player = new PlayerPresenter(_unitsConfiguration.playerConfiguration, Vector2.zero, playerInput, hud);
+            _player = new PlayerPresenter(_unitsConfiguration.playerConfiguration, Vector2.zero, collideAction, playerInput, hud);
             return _player;
         }
 
-        public IUpdateItem CreateEnemy()
+        public UnitPresenter CreateEnemy(Action collideAction)
         {
             var seed = Random.Range(0, 100);
             var position = new Vector3(Random.Range(0f, Screen.width), Random.Range(0f, Screen.height), _camera.transform.position.z);
             var worldPosition = _camera.ScreenToWorldPoint(position);
             if (seed > 50)
             {
-                var asteroid = new AsteroidPresenter(_unitsConfiguration.asteroidConfiguration, worldPosition);
+                var asteroid = new AsteroidPresenter(_unitsConfiguration.asteroidConfiguration, worldPosition, collideAction);
 
                 return asteroid;
             }
             else
             {
-                var alien = new AlienPresenter(_unitsConfiguration.alienConfiguration, worldPosition, _player);
+                var alien = new AlienPresenter(_unitsConfiguration.alienConfiguration, worldPosition, collideAction, _player);
 
                 return alien;
             }
